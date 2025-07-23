@@ -1,0 +1,372 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="External Libraries">
+      <UniqueIdentifier>{54cc1037-361f-4374-8a9a-627ee2489a41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\CORE">
+      <UniqueIdentifier>{6bb82329-7371-4855-a6d3-5ac500f96a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MANAGERS">
+      <UniqueIdentifier>{d928d65a-7d9e-483a-bdb2-b64185b15c95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\STATES">
+      <UniqueIdentifier>{7e18e402-a3bd-4913-b24c-24ec5a7ebb4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SYSTEMS">
+      <UniqueIdentifier>{6c14a913-947a-4423-b707-21e758eb2be6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UTILS">
+      <UniqueIdentifier>{4fbe397b-0e0c-4b9f-b48d-0d9b1527dfff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ECS">
+      <UniqueIdentifier>{af34583f-f645-4de0-ade3-5c119a8adefb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\CORE">
+      <UniqueIdentifier>{a7b13db3-ce5b-49a4-8303-c56a1c4cd96a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\MANAGERS">
+      <UniqueIdentifier>{ae98ce7a-f7f3-46a1-98d7-a7370c47148d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\INPUT">
+      <UniqueIdentifier>{4d3fa7e4-daec-44f2-bf92-841a94904ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\STATES">
+      <UniqueIdentifier>{deba0b30-a967-4040-aa31-2dfdffed8edc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ECS">
+      <UniqueIdentifier>{6e624f55-3549-41b9-8669-15f0220c1d79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\SYSTEMS">
+      <UniqueIdentifier>{7539fc9f-c9fe-4fb6-8f10-f57a2dd674b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UTILS">
+      <UniqueIdentifier>{e5849f1b-6ccf-434e-847d-15107f232c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Image">
+      <UniqueIdentifier>{181355db-4a85-488c-9e07-3f3c34d64e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ECS\Components">
+      <UniqueIdentifier>{78f2d1e4-ed99-4713-80e8-7d74514026d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\INPUT">
+      <UniqueIdentifier>{fd8eccfd-d540-4004-9bf5-07edeca970e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ECS\Components">
+      <UniqueIdentifier>{a530448b-805f-429e-81eb-6c52621ddbc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\font">
+      <UniqueIdentifier>{b5dea9a4-827d-4188-b26e-b920bb882e75}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Source Files\INPUT</Filter>
+    </ClCompile>
+    <ClCompile Include="AssetManager.cpp">
+      <Filter>Source Files\MANAGERS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStateMachine.cpp">
+      <Filter>Source Files\STATES</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>Source Files\STATES</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerInputSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="AISystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySpawnerSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="WeaponControlSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRenderSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderComponent.cpp">
+      <Filter>Source Files\ECS\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="LootSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="FollowSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuState.cpp">
+      <Filter>Source Files\STATES</Filter>
+    </ClCompile>
+    <ClCompile Include="StatsRenderSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameOverState.cpp">
+      <Filter>Source Files\STATES</Filter>
+    </ClCompile>
+    <ClCompile Include="PauseState.cpp">
+      <Filter>Source Files\STATES</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEventSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeRenderSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Source Files\CORE</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveSystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="UpgrdateShopState.cpp">
+      <Filter>Source Files\STATES</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Timer.h">
+      <Filter>Header Files\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Header Files\INPUT</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetManager.h">
+      <Filter>Header Files\MANAGERS</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameState.h">
+      <Filter>Header Files\STATES</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStateMachine.h">
+      <Filter>Header Files\STATES</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayState.h">
+      <Filter>Header Files\STATES</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2D.h">
+      <Filter>Header Files\UTILS</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerControllerComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerInputSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="AIComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AISystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySpawnerSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponControlSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRenderSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="WeaponComponents.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="LootDropComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ExperienceOrbComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LootSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreValueComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="StatsComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="FollowSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuState.h">
+      <Filter>Header Files\STATES</Filter>
+    </ClInclude>
+    <ClInclude Include="StatsRenderSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverState.h">
+      <Filter>Header Files\STATES</Filter>
+    </ClInclude>
+    <ClInclude Include="DamageTextComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseState.h">
+      <Filter>Header Files\STATES</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEventSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeRenderSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Header Files\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoise.h">
+      <Filter>Header Files\CORE</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="GoldCoinComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UpgradeShopState.h">
+      <Filter>Header Files\STATES</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\Asset\player.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="..\..\..\Asset\bullet.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="..\..\..\Asset\chaser.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="..\..\..\Asset\brute.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="..\..\..\Asset\xp_orb.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="..\..\..\Asset\pause_icon.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="..\..\..\Asset\whip.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="..\..\..\Asset\coin.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\..\..\Asset\map1.map.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\..\..\Asset\font\your_font.ttf">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+    <Font Include="..\..\..\Asset\font\your_font2.ttf">
+      <Filter>Resource Files\font</Filter>
+    </Font>
+  </ItemGroup>
+</Project>
