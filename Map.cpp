@@ -110,3 +110,19 @@ int Map::GetWorldWidth() const {
 int Map::GetWorldHeight() const {
     return m_mapHeightInTiles * m_tileSize;
 }
+
+int Map::GetTileIdAt(int x, int y) const {
+    if (x < 0 || x >= GetWorldWidth() || y < 0 || y >= GetWorldHeight()) {
+        return -1; // Tọa độ nằm ngoài bản đồ
+    }
+
+    int tileCol = x / m_tileSize;
+    int tileRow = y / m_tileSize;
+
+    // Đảm bảo không truy cập ngoài mảng m_mapData
+    if (tileRow >= 0 && tileRow < m_mapHeightInTiles && tileCol >= 0 && tileCol < m_mapWidthInTiles) {
+        return m_mapData[tileRow][tileCol];
+    }
+
+    return -1; // Trả về -1 nếu có lỗi
+}

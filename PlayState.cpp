@@ -121,6 +121,12 @@ void PlayState::OnEnter()
     m_pauseButton->AddComponent<TransformComponent>(1280 - 60, 10, 48, 48, 1.0);
     m_pauseButton->AddComponent<SpriteComponent>("pause_icon", true);
     // (Nâng cao) Có thể tạo một UIButtonComponent để đánh dấu
+    
+    // Đăng ký để lắng nghe sự kiện PlayerDamagedEvent.
+    // Khi sự kiện này được gửi đi, hàm OnPlayerDamaged của PlayState sẽ được gọi.
+    EventManager::GetInstance()->Subscribe<PlayerDamagedEvent>(
+        std::bind(&PlayState::OnPlayerDamaged, this, std::placeholders::_1)
+    );
 
     std::cout << "PlayState entered successfully." << std::endl;
 }
@@ -174,6 +180,8 @@ void PlayState::Update(float deltaTime)
     m_AISystem.Update(m_EntityManager, deltaTime);
     m_RangedAISystem.Update(m_EntityManager, deltaTime);
     m_WeaponControlSystem.Update(m_EntityManager, deltaTime);
+    // GỌI HỆ THỐNG MỚI NGAY TẠI ĐÂY
+    m_TileEffectSystem.Update(m_EntityManager, m_pMap, deltaTime);
 
     // 3. Di chuyển TẤT CẢ các thực thể
     m_EntityManager.Update(deltaTime);
@@ -542,4 +550,27 @@ void PlayState::ApplyUpgradeAndResume(const UpgradeData& chosenUpgrade) {
     m_isPausedForUpgrade = false;
     m_currentUpgradeChoices.clear();
     std::cout << "Game Resumed!" << std::endl;
+}
+
+void PlayState::OnPlayerDamaged(Event& event) {
+    // Chuyển đổi event chung thành event cụ thể
+    PlayerDamagedEvent& damageEvent = static_cast<PlayerDamagedEvent&>(event);
+    Entity* player = damageEvent.playerEntity;
+    int damageTaken = damageEvent.damageAmount;
+
+    if (!player || !player->IsActive()) return;
+
+    // Đây là logic tạo text sát thương mà trước đây nằm trong CollisionSystem
+    if (auto* playerTransform = player->TryGetComponent<TransformComponent>()) {
+        Entity& damageText = m_EntityManager.AddEntity();
+        std::string text = "-" + std::to_string(damageTaken);
+        SDL_Color color = { 255, 80, 80, 255 }; // Màu đỏ
+
+        float spawnX = playerTransform->position.x + playerTransform->width;
+        float spawnY = playerTransform->position.y;
+
+        damageText.AddComponent<TransformComponent>(spawnX, spawnY, 0, 0, 1.0);
+        damageText.AddComponent<TextComponent>(text, "main_font", color);
+        damageText.AddComponent<DamageTextComponent>();
+    }
 }

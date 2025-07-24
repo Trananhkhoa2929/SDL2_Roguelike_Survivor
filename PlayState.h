@@ -21,6 +21,9 @@
 #include "GameEventSystem.h"
 #include "TimeRenderSystem.h"
 #include "RangedAISystem.h"
+#include "EventManager.h"
+#include "PlayerEvents.h"
+#include "TileEffectSystem.h"
 #include <string>
 
 // MỚI: Lấy kích thước thế giới từ bản đồ
@@ -50,6 +53,7 @@ private:
 	EntityManager m_EntityManager;
 	RenderSystem m_RenderSystem;
 
+	TileEffectSystem m_TileEffectSystem;
 	PlayerInputSystem m_PlayerInputSystem;
 	CollisionSystem m_CollisionSystem;
 
@@ -94,4 +98,6 @@ private:
 	void RenderUpgradeUI();
 	void HandleUpgradeSelection();
 	void ApplyUpgradeAndResume(const UpgradeData& chosenUpgrade);
+	void OnPlayerDamaged(Event& event); // <--- THÊM DÒNG NÀY VÀO ĐÂY
+
 };

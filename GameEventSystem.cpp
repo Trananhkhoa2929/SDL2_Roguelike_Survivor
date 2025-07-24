@@ -8,14 +8,14 @@ GameEventSystem::GameEventSystem() : m_currentEventIndex(0) {
     // 0-15 giây: Quái xuất hiện mỗi 2.5 giây
     m_eventScript.push_back({ 15.0f, GameEventType::CHANGE_SPAWN_INTERVAL, 2.0f, "" });
 
+    // 15 giây: Archer xuất hiện
+    m_eventScript.push_back({ 15.0f, GameEventType::ADD_ENEMY_TO_POOL, 0, "archer" });
+
     // 30 giây: Brute bắt đầu xuất hiện
     m_eventScript.push_back({ 30.0f, GameEventType::ADD_ENEMY_TO_POOL, 0, "brute" });
 
     // 45 giây: Quái xuất hiện dồn dập hơn
     m_eventScript.push_back({ 45.0f, GameEventType::CHANGE_SPAWN_INTERVAL, 1.2f, "" });
-
-    // 60 giây: Archer xuất hiện
-    m_eventScript.push_back({ 60.0f, GameEventType::ADD_ENEMY_TO_POOL, 0, "archer" });
 
     // 90 giây (1:30): Nhịp độ tăng vọt
     m_eventScript.push_back({ 90.0f, GameEventType::CHANGE_SPAWN_INTERVAL, 0.7f, "" });

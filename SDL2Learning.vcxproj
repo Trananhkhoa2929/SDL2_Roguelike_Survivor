@@ -48,6 +48,7 @@
     <ClCompile Include="SaveSystem.cpp" />
     <ClCompile Include="StatsRenderSystem.cpp" />
     <ClCompile Include="TextRenderSystem.cpp" />
+    <ClCompile Include="TileEffectSystem.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimeRenderSystem.cpp" />
     <ClCompile Include="UpgrdateShopState.cpp" />
@@ -66,6 +67,8 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventManager.h" />
     <ClInclude Include="ExperienceOrbComponent.h" />
     <ClInclude Include="FollowSystem.h" />
     <ClInclude Include="GameEventSystem.h" />
@@ -86,6 +89,7 @@
     <ClInclude Include="PauseState.h" />
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="PlayerControllerComponent.h" />
+    <ClInclude Include="PlayerEvents.h" />
     <ClInclude Include="PlayerInputSystem.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="ProjectileComponent.h" />
@@ -101,6 +105,7 @@
     <ClInclude Include="StatsRenderSystem.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TextRenderSystem.h" />
+    <ClInclude Include="TileEffectSystem.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimeRenderSystem.h" />
     <ClInclude Include="TransformComponent.h" />

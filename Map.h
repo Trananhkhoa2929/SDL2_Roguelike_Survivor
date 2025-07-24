@@ -13,6 +13,7 @@ public:
 
     void Render(SDL_Renderer* renderer);
 
+    int GetTileIdAt(int x, int y) const; // <--- THÊM HÀM NÀY
     int GetWorldWidth() const;
     int GetWorldHeight() const;
 

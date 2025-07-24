@@ -38,7 +38,7 @@ void StatsRenderSystem::Render(EntityManager& entityManager, SDL_Renderer* rende
     // 2. Chu?n b? d? li?u và v? trí v?
     AssetManager* assets = AssetManager::GetInstance();
     SDL_Color textColor = { 255, 255, 255, 255 }; // Màu tr?ng
-    int x = 1280 - 250; // V? trí b?t ??u v? ? góc trên bên ph?i
+    int x = 1280 - 300; // V? trí b?t ??u v? ? góc trên bên ph?i
     int y = 20;
     int yOffset = 25; // Kho?ng cách gi?a các dòng
 

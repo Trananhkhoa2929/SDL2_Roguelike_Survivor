@@ -70,6 +70,9 @@
     <Filter Include="Resource Files\font">
       <UniqueIdentifier>{b5dea9a4-827d-4188-b26e-b920bb882e75}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\CORE\Event">
+      <UniqueIdentifier>{24e8b2ec-70e7-4350-a432-9b89833bd5d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Timer.cpp">
@@ -169,6 +172,9 @@
       <Filter>Source Files\STATES</Filter>
     </ClCompile>
     <ClCompile Include="RangedAISystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
+    <ClCompile Include="TileEffectSystem.cpp">
       <Filter>Source Files\SYSTEMS</Filter>
     </ClCompile>
   </ItemGroup>
@@ -337,6 +343,18 @@
     </ClInclude>
     <ClInclude Include="RangedAISystem.h">
       <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="TileEffectSystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
+    <ClInclude Include="EventManager.h">
+      <Filter>Header Files\MANAGERS</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerEvents.h">
+      <Filter>Header Files\CORE\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\CORE\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
