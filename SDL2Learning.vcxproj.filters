@@ -168,6 +168,9 @@
     <ClCompile Include="UpgrdateShopState.cpp">
       <Filter>Source Files\STATES</Filter>
     </ClCompile>
+    <ClCompile Include="RangedAISystem.cpp">
+      <Filter>Source Files\SYSTEMS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Timer.h">
@@ -329,32 +332,12 @@
     <ClInclude Include="UpgradeShopState.h">
       <Filter>Header Files\STATES</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\..\Asset\player.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
-    <Image Include="..\..\..\Asset\bullet.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
-    <Image Include="..\..\..\Asset\chaser.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
-    <Image Include="..\..\..\Asset\brute.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
-    <Image Include="..\..\..\Asset\xp_orb.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
-    <Image Include="..\..\..\Asset\pause_icon.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
-    <Image Include="..\..\..\Asset\whip.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
-    <Image Include="..\..\..\Asset\coin.png">
-      <Filter>Resource Files\Image</Filter>
-    </Image>
+    <ClInclude Include="RangedAIComponent.h">
+      <Filter>Header Files\ECS\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RangedAISystem.h">
+      <Filter>Header Files\SYSTEMS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\Asset\map1.map.txt">
@@ -368,5 +351,40 @@
     <Font Include="..\..\..\Asset\font\your_font2.ttf">
       <Filter>Resource Files\font</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Asset\archer.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\arrow.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\brute.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\chaser.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\coin.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\pause_icon.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\player.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\tileset_4_types_16x16.png">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\whip.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\xp_orb.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
+    <Image Include="Asset\bullet.PNG">
+      <Filter>Resource Files\Image</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -10,6 +10,7 @@
 #include "HealthComponent.h"
 #include "LootDropComponent.h"
 #include "ScoreValueComponent.h"
+#include "RangedAIComponent.h"
 #include "Camera.h"
 #include <chrono>
 #include <iostream> // <--- Thêm vào để debug
@@ -68,6 +69,9 @@ void EnemySpawnerSystem::CreateEnemyByType(const std::string& type, EntityManage
     }
     else if (type == "brute") {
         CreateBrute(entityManager);
+    }
+    else if (type == "archer") {
+        CreateArcher(entityManager);
     }
     // Thêm các loại kẻ thù khác ở đây
 }
@@ -133,4 +137,19 @@ void EnemySpawnerSystem::CreateBrute(EntityManager& entityManager) {
     brute.AddComponent<ScoreValueComponent>(30);
     // --- DEBUG ---
     std::cout << "Created Brute at (" << spawnX << ", " << spawnY << ")" << std::endl;
+}
+
+// Thêm hàm này vào EnemySpawnerSystem.cpp
+void EnemySpawnerSystem::CreateArcher(EntityManager& entityManager) {
+    Entity& archer = entityManager.AddEntity();
+    float spawnX, spawnY;
+    GetRandomSpawnPosition(spawnX, spawnY);
+
+    archer.AddComponent<TransformComponent>(spawnX, spawnY, 32, 32, 1.5);
+    archer.AddComponent<SpriteComponent>("archer_sprite"); // Cần texture mới
+    archer.AddComponent<ColliderComponent>("enemy");
+    archer.AddComponent<HealthComponent>(30); // Máu giấy hơn
+    archer.AddComponent<LootDropComponent>(35, 8);
+    archer.AddComponent<ScoreValueComponent>(15);
+    archer.AddComponent<RangedAIComponent>(500.0f, 2.0f); // Tầm bắn 500px, hồi chiêu 3 giây
 }

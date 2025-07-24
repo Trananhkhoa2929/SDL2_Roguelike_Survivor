@@ -14,8 +14,13 @@ GameEventSystem::GameEventSystem() : m_currentEventIndex(0) {
     // 45 giây: Quái xuất hiện dồn dập hơn
     m_eventScript.push_back({ 45.0f, GameEventType::CHANGE_SPAWN_INTERVAL, 1.2f, "" });
 
+    // 60 giây: Archer xuất hiện
+    m_eventScript.push_back({ 60.0f, GameEventType::ADD_ENEMY_TO_POOL, 0, "archer" });
+
     // 90 giây (1:30): Nhịp độ tăng vọt
     m_eventScript.push_back({ 90.0f, GameEventType::CHANGE_SPAWN_INTERVAL, 0.7f, "" });
+
+
 
     // 180 giây (3:00): Chuẩn bị cho boss
     // m_eventScript.push_back({ 180.0f, GameEventType::SPAWN_BOSS, 0, "giant_brute" });

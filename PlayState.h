@@ -20,6 +20,7 @@
 #include "StatsRenderSystem.h" 
 #include "GameEventSystem.h"
 #include "TimeRenderSystem.h"
+#include "RangedAISystem.h"
 #include <string>
 
 // MỚI: Lấy kích thước thế giới từ bản đồ
@@ -55,6 +56,7 @@ private:
 	AISystem m_AISystem;
 	EnemySpawnerSystem m_EnemySpawnerSystem;
 
+	RangedAISystem m_RangedAISystem;
 	FollowSystem m_FollowSystem; // MỚI: Khai báo biến thành viên
 	WeaponControlSystem m_WeaponControlSystem;          // <--- Thêm biến thành viên
 	DamageSystem m_DamageSystem;

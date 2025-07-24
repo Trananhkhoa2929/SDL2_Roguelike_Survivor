@@ -24,7 +24,7 @@ private:
     // Các hàm helper để tạo từng loại kẻ thù
     void CreateChaser(EntityManager& entityManager);
     void CreateBrute(EntityManager& entityManager);
-
+    void CreateArcher(EntityManager& entityManager);
     // Hàm helper để lấy vị trí spawn ngẫu nhiên
     void GetRandomSpawnPosition(float& x, float& y);
 

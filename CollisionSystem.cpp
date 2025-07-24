@@ -18,21 +18,20 @@ bool CollisionSystem::CheckAABBCollision(const SDL_Rect& a, const SDL_Rect& b) {
 
 }
 
-// REFACTOR: Tách logic xử lý va chạm thành các hàm riêng biệt
-void HandlePlayerEnemyCollision(Entity* player, Entity* enemy, EntityManager& entityManager) {
-	int damageTaken = 10;
 
+void HandlePlayerTakingDamage(Entity* player, int damageAmount, EntityManager& entityManager) {
+	// 1. Trừ máu của người chơi
 	if (auto* health = player->TryGetComponent<HealthComponent>()) {
-		// BUG FIX: Kẻ thù chạm vào người chơi nên gây sát thương nhiều hơn.
-		health->currentHealth -= 10;
-		std::cout << "Player took 10 damage from enemy collision. Current health: " << health->currentHealth << std::endl;
+		health->currentHealth -= damageAmount;
+		std::cout << "Player took " << damageAmount << " damage. Current health: " << health->currentHealth << std::endl;
 	}
+
+	// 2. Tạo và hiển thị số sát thương
 	if (auto* playerTransform = player->TryGetComponent<TransformComponent>()) {
 		Entity& damageText = entityManager.AddEntity();
-		std::string text = "-" + std::to_string(damageTaken);
+		std::string text = "-" + std::to_string(damageAmount);
 		SDL_Color color = { 255, 50, 50, 255 }; // Màu đỏ tươi
 
-		// Vị trí xuất hiện ở bên phải của player
 		float spawnX = playerTransform->position.x + playerTransform->width;
 		float spawnY = playerTransform->position.y;
 
@@ -40,9 +39,14 @@ void HandlePlayerEnemyCollision(Entity* player, Entity* enemy, EntityManager& en
 		damageText.AddComponent<TextComponent>(text, "main_font", color);
 		damageText.AddComponent<DamageTextComponent>();
 	}
+}
+
+// REFACTOR: Tách logic xử lý va chạm thành các hàm riêng biệt
+void HandlePlayerEnemyCollision(Entity* player, Entity* enemy, EntityManager& entityManager) {
+	// Gọi hàm xử lý sát thương chung
+	HandlePlayerTakingDamage(player, 10, entityManager); // Kẻ thù chạm vào gây 10 sát thương
 	// Kẻ thù bị hủy sau khi va chạm.
 	enemy->Destroy();
-
 }
 
 void HandleProjectileEnemyCollision(Entity* projectile, Entity* enemy, EntityManager& entityManager) {
@@ -56,7 +60,6 @@ void HandleProjectileEnemyCollision(Entity* projectile, Entity* enemy, EntityMan
 	// Đạn luôn bị hủy sau khi va chạm.
 	projectile->Destroy();
 }
-
 
 void CollisionSystem::Update(EntityManager& entityManager)
 {
@@ -100,6 +103,15 @@ void CollisionSystem::Update(EntityManager& entityManager)
 				}
 				else if (tagA == "enemy" && tagB == "projectile") {
 					HandleProjectileEnemyCollision(entityB, entityA, entityManager);
+				}
+				else if (tagA == "enemy_projectile" && tagB == "player") {
+					// EntityA là mũi tên, EntityB là người chơi
+					int damage = 10; // Mặc định là 10
+					// Gọi hàm xử lý sát thương chung
+					HandlePlayerTakingDamage(entityB, damage, entityManager);
+
+					// Hủy mũi tên sau khi va chạm
+					entityA->Destroy();
 				}
 				// Thêm các trường hợp va chạm khác ở đây (ví dụ: enemy vs enemy)
 			}

@@ -43,6 +43,7 @@
     <ClCompile Include="PlayerInputSystem.cpp" />
     <ClCompile Include="PlayState.cpp" />
     <ClCompile Include="ProjectileSystem.cpp" />
+    <ClCompile Include="RangedAISystem.cpp" />
     <ClCompile Include="RenderSystem.cpp" />
     <ClCompile Include="SaveSystem.cpp" />
     <ClCompile Include="StatsRenderSystem.cpp" />
@@ -89,6 +90,8 @@
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="ProjectileComponent.h" />
     <ClInclude Include="ProjectileSystem.h" />
+    <ClInclude Include="RangedAIComponent.h" />
+    <ClInclude Include="RangedAISystem.h" />
     <ClInclude Include="RenderSystem.h" />
     <ClInclude Include="SaveSystem.h" />
     <ClInclude Include="ScoreComponent.h" />
@@ -108,21 +111,24 @@
     <ClInclude Include="WeaponControlSystem.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\Asset\brute.png" />
-    <Image Include="..\..\..\Asset\bullet.png" />
-    <Image Include="..\..\..\Asset\chaser.png" />
-    <Image Include="..\..\..\Asset\coin.png" />
-    <Image Include="..\..\..\Asset\pause_icon.png" />
-    <Image Include="..\..\..\Asset\player.png" />
-    <Image Include="..\..\..\Asset\whip.png" />
-    <Image Include="..\..\..\Asset\xp_orb.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="..\..\..\Asset\map1.map.txt" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\..\..\Asset\font\your_font.ttf" />
     <Font Include="..\..\..\Asset\font\your_font2.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Asset\archer.PNG" />
+    <Image Include="Asset\arrow.PNG" />
+    <Image Include="Asset\brute.PNG" />
+    <Image Include="Asset\bullet.PNG" />
+    <Image Include="Asset\chaser.PNG" />
+    <Image Include="Asset\coin.PNG" />
+    <Image Include="Asset\pause_icon.PNG" />
+    <Image Include="Asset\player.PNG" />
+    <Image Include="Asset\tileset_4_types_16x16.png" />
+    <Image Include="Asset\whip.PNG" />
+    <Image Include="Asset\xp_orb.PNG" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

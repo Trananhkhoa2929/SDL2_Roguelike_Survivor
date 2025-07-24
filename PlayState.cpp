@@ -51,6 +51,9 @@ void PlayState::OnEnter()
     AssetManager::GetInstance()->LoadTexture("player_sprite", "Asset/player.png");
     AssetManager::GetInstance()->LoadTexture("chaser_sprite", "Asset/chaser.png");
     AssetManager::GetInstance()->LoadTexture("brute_sprite", "Asset/brute.png");
+    // load enemy archer và arrow của nó
+    AssetManager::GetInstance()->LoadTexture("archer_sprite", "Asset/archer.png");
+    AssetManager::GetInstance()->LoadTexture("arrow_sprite", "Asset/arrow.png");
     // magic wand
     AssetManager::GetInstance()->LoadTexture("bullet_sprite", "Asset/bullet.png");
     // whip
@@ -169,6 +172,7 @@ void PlayState::Update(float deltaTime)
     m_PlayerInputSystem.Update(m_EntityManager, deltaTime);
     m_EnemySpawnerSystem.Update(m_EntityManager, deltaTime);
     m_AISystem.Update(m_EntityManager, deltaTime);
+    m_RangedAISystem.Update(m_EntityManager, deltaTime);
     m_WeaponControlSystem.Update(m_EntityManager, deltaTime);
 
     // 3. Di chuyển TẤT CẢ các thực thể
