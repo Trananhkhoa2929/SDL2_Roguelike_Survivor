@@ -19,103 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AISystem.cpp" />
-    <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="ColliderComponent.cpp" />
-    <ClCompile Include="CollisionSystem.cpp" />
-    <ClCompile Include="DamageSystem.cpp" />
-    <ClCompile Include="EnemySpawnerSystem.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EntityManager.cpp" />
-    <ClCompile Include="FollowSystem.cpp" />
-    <ClCompile Include="GameEventSystem.cpp" />
-    <ClCompile Include="GameOverState.cpp" />
-    <ClCompile Include="GameStateMachine.cpp" />
-    <ClCompile Include="HealthSystem.cpp" />
-    <ClCompile Include="InputHandler.cpp" />
-    <ClCompile Include="LevelSystem.cpp" />
-    <ClCompile Include="LootSystem.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuState.cpp" />
-    <ClCompile Include="Map.cpp" />
-    <ClCompile Include="PauseState.cpp" />
-    <ClCompile Include="PlayerInputSystem.cpp" />
-    <ClCompile Include="PlayState.cpp" />
-    <ClCompile Include="ProjectileSystem.cpp" />
-    <ClCompile Include="RangedAISystem.cpp" />
-    <ClCompile Include="RenderSystem.cpp" />
-    <ClCompile Include="SaveSystem.cpp" />
-    <ClCompile Include="StatsRenderSystem.cpp" />
-    <ClCompile Include="TextRenderSystem.cpp" />
-    <ClCompile Include="TileEffectSystem.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="TimeRenderSystem.cpp" />
-    <ClCompile Include="UpgrdateShopState.cpp" />
-    <ClCompile Include="WeaponControlSystem.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AIComponent.h" />
-    <ClInclude Include="AISystem.h" />
-    <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="ColliderComponent.h" />
-    <ClInclude Include="CollisionSystem.h" />
-    <ClInclude Include="DamageSystem.h" />
-    <ClInclude Include="DamageTextComponent.h" />
-    <ClInclude Include="EnemySpawnerSystem.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityManager.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="EventManager.h" />
-    <ClInclude Include="ExperienceOrbComponent.h" />
-    <ClInclude Include="FollowSystem.h" />
-    <ClInclude Include="GameEventSystem.h" />
-    <ClInclude Include="GameOverState.h" />
-    <ClInclude Include="GameStateMachine.h" />
-    <ClInclude Include="GoldCoinComponent.h" />
-    <ClInclude Include="HealthComponent.h" />
-    <ClInclude Include="HealthSystem.h" />
-    <ClInclude Include="IComponent.h" />
-    <ClInclude Include="IGameState.h" />
-    <ClInclude Include="InputHandler.h" />
-    <ClInclude Include="LevelComponent.h" />
-    <ClInclude Include="LevelSystem.h" />
-    <ClInclude Include="LootDropComponent.h" />
-    <ClInclude Include="LootSystem.h" />
-    <ClInclude Include="MainMenuState.h" />
-    <ClInclude Include="Map.h" />
-    <ClInclude Include="PauseState.h" />
-    <ClInclude Include="PerlinNoise.h" />
-    <ClInclude Include="PlayerControllerComponent.h" />
-    <ClInclude Include="PlayerEvents.h" />
-    <ClInclude Include="PlayerInputSystem.h" />
-    <ClInclude Include="PlayState.h" />
-    <ClInclude Include="ProjectileComponent.h" />
-    <ClInclude Include="ProjectileSystem.h" />
-    <ClInclude Include="RangedAIComponent.h" />
-    <ClInclude Include="RangedAISystem.h" />
-    <ClInclude Include="RenderSystem.h" />
-    <ClInclude Include="SaveSystem.h" />
-    <ClInclude Include="ScoreComponent.h" />
-    <ClInclude Include="ScoreValueComponent.h" />
-    <ClInclude Include="SpriteComponent.h" />
-    <ClInclude Include="StatsComponent.h" />
-    <ClInclude Include="StatsRenderSystem.h" />
-    <ClInclude Include="TextComponent.h" />
-    <ClInclude Include="TextRenderSystem.h" />
-    <ClInclude Include="TileEffectSystem.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="TimeRenderSystem.h" />
-    <ClInclude Include="TransformComponent.h" />
-    <ClInclude Include="UpgradeShopState.h" />
-    <ClInclude Include="UpgradeSystem.h" />
-    <ClInclude Include="Vector2D.h" />
-    <ClInclude Include="WeaponComponents.h" />
-    <ClInclude Include="WeaponControlSystem.h" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="..\..\..\Asset\map1.map.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +37,83 @@
     <Image Include="Asset\tileset_4_types_16x16.png" />
     <Image Include="Asset\whip.PNG" />
     <Image Include="Asset\xp_orb.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Sources\Components\Core\ColliderComponent.cpp" />
+    <ClCompile Include="Sources\Core\Camera.cpp" />
+    <ClCompile Include="Sources\Core\Engine.cpp" />
+    <ClCompile Include="Sources\Core\InputHandler.cpp" />
+    <ClCompile Include="Sources\Core\Timer.cpp" />
+    <ClCompile Include="Sources\Managers\AssetManager.cpp" />
+    <ClCompile Include="Sources\Managers\EntityManager.cpp" />
+    <ClCompile Include="Sources\States\GameOverState.cpp" />
+    <ClCompile Include="Sources\States\GameStateMachine.cpp" />
+    <ClCompile Include="Sources\States\MainMenuState.cpp" />
+    <ClCompile Include="Sources\States\PauseState.cpp" />
+    <ClCompile Include="Sources\States\PlayState.cpp" />
+    <ClCompile Include="Sources\States\UpgrdateShopState.cpp" />
+    <ClCompile Include="Sources\Systems\AI\AISystem.cpp" />
+    <ClCompile Include="Sources\Systems\AI\FollowSystem.cpp" />
+    <ClCompile Include="Sources\Systems\AI\RangedAISystem.cpp" />
+    <ClCompile Include="Sources\Systems\Core\CollisionSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Core\HealthSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Core\ProjectileSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Core\RenderSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Core\SaveSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Core\TimeRenderSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\DamageSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\EnemySpawnerSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\GameEventSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\LevelSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\LootSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\PlayerInputSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\TileEffectSystem.cpp" />
+    <ClCompile Include="Sources\Systems\Gameplay\WeaponControlSystem.cpp" />
+    <ClCompile Include="Sources\Systems\UI\StatsRenderSystem.cpp" />
+    <ClCompile Include="Sources\Systems\UI\TextRenderSystem.cpp" />
+    <ClCompile Include="Sources\Utils\Map.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Headers\Components\AI\AIComponent.h" />
+    <ClInclude Include="Headers\Components\AI\RangedAIComponent.h" />
+    <ClInclude Include="Headers\Components\Core\ColliderComponent.h" />
+    <ClInclude Include="Headers\Components\Core\HealthComponent.h" />
+    <ClInclude Include="Headers\Components\Core\ScoreComponent.h" />
+    <ClInclude Include="Headers\Components\Core\SpriteComponent.h" />
+    <ClInclude Include="Headers\Components\Core\TextComponent.h" />
+    <ClInclude Include="Headers\Components\Core\TransformComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\DamageTextComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\ExperienceOrbComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\GoldCoinComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\LevelComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\LootDropComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\PlayerControllerComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\ProjectileComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\ScoreValueComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\StatsComponent.h" />
+    <ClInclude Include="Headers\Components\Gameplay\WeaponComponents.h" />
+    <ClInclude Include="Headers\Core\Camera.h" />
+    <ClInclude Include="Headers\Core\Engine.h" />
+    <ClInclude Include="Headers\Core\Entity.h" />
+    <ClInclude Include="Headers\Core\IComponent.h" />
+    <ClInclude Include="Headers\Core\IGameState.h" />
+    <ClInclude Include="Headers\Core\InputHandler.h" />
+    <ClInclude Include="Headers\Core\Timer.h" />
+    <ClInclude Include="Headers\Events\Event.h" />
+    <ClInclude Include="Headers\Events\EventManager.h" />
+    <ClInclude Include="Headers\Events\PlayerEvents.h" />
+    <ClInclude Include="Headers\Managers\AssetManager.h" />
+    <ClInclude Include="Headers\Managers\EntityManager.h" />
+    <ClInclude Include="Headers\States\GameOverState.h" />
+    <ClInclude Include="Headers\States\GameStateMachine.h" />
+    <ClInclude Include="Headers\States\MainMenuState.h" />
+    <ClInclude Include="Headers\States\PauseState.h" />
+    <ClInclude Include="Headers\States\PlayState.h" />
+    <ClInclude Include="Headers\States\UpgradeShopState.h" />
+    <ClInclude Include="Headers\Utils\Map.h" />
+    <ClInclude Include="Headers\Utils\PerlinNoise.h" />
+    <ClInclude Include="Headers\Utils\Vector2D.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -234,7 +214,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Headers\Core;$(ProjectDir)Headers\Components\AI;$(ProjectDir)Headers\Systems\Core;$(ProjectDir)Headers\Utils;$(ProjectDir)Headers\Events;$(ProjectDir)Headers\Components\Core;$(ProjectDir)Headers\Components\Gameplay;$(ProjectDir)Headers\States;$(ProjectDir)Headers\Managers;$(ProjectDir)Headers\Systems\Gameplay;$(ProjectDir)Headers\Systems\AI;$(ProjectDir)Headers\Systems\UI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
