@@ -3,13 +3,33 @@
 #include <iostream>
 #include <sstream>
 
+#ifdef __EMSCRIPTEN__
+#include <emscripten.h>
+#endif
+
 SaveSystem* SaveSystem::s_Instance = nullptr;
 
 void SaveSystem::LoadGame() {
+#ifdef __EMSCRIPTEN__
+    // Sync IndexedDB to virtual filesystem
+    EM_ASM(
+        FS.mkdir('/persistent');
+    FS.mount(IDBFS, {}, '/persistent');
+    FS.syncfs(true, function(err) {
+        if (err) {
+            console.log('Failed to load from IndexedDB: ' + err);
+        }
+        else {
+            console.log('Loaded save data from IndexedDB');
+        }
+    });
+        );
+    m_saveFilePath = "/persistent/player_data.sav";
+#endif
+
     std::ifstream saveFile(m_saveFilePath);
     if (!saveFile.is_open()) {
         std::cout << "No save file found. Starting fresh." << std::endl;
-        // Nếu không có file save, tạo một file mới với giá trị mặc định
         SaveGame();
         return;
     }
@@ -24,7 +44,6 @@ void SaveSystem::LoadGame() {
                 m_gold = std::stoi(value);
             }
             else {
-                // Các dòng khác là nâng cấp vĩnh viễn
                 m_permanentUpgrades[key] = std::stoi(value);
             }
         }
@@ -46,6 +65,20 @@ void SaveSystem::SaveGame() {
     }
     std::cout << "Game data saved." << std::endl;
     saveFile.close();
+
+#ifdef __EMSCRIPTEN__
+    // Sync virtual filesystem to IndexedDB
+    EM_ASM(
+        FS.syncfs(false, function(err) {
+        if (err) {
+            console.log('Failed to save to IndexedDB: ' + err);
+        }
+        else {
+            console.log('Saved data to IndexedDB');
+        }
+    });
+    );
+#endif
 }
 
 int SaveSystem::GetGold() const { return m_gold; }
@@ -64,7 +97,7 @@ int SaveSystem::GetUpgradeLevel(const std::string& upgradeId) {
     if (m_permanentUpgrades.count(upgradeId)) {
         return m_permanentUpgrades[upgradeId];
     }
-    return 0; // Mặc định là cấp 0 nếu chưa mua
+    return 0;
 }
 
 void SaveSystem::IncreaseUpgradeLevel(const std::string& upgradeId) {
