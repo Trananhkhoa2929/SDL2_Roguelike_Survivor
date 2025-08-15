@@ -169,6 +169,7 @@ The web build includes the following optimizations:
 2. **Assets not found:** Check that asset paths are relative (start with `Asset/`)
 3. **Web build doesn't load:** Make sure to serve from a web server, not open directly
 4. **Build fails:** Verify all dependencies are installed and Emscripten is activated
+5. **Include path issues:** The current project has a complex header structure that may require additional include path configuration for some build environments
 
 ### Debug Build
 
@@ -182,6 +183,15 @@ cmake .. -DCMAKE_BUILD_TYPE=Debug
 ```
 
 Debug builds include additional logging and debugging symbols.
+
+### Build System Notes
+
+The CMakeLists.txt provides a foundation for cross-platform builds but may need refinement for the complex header dependency structure of this project. The key improvements made are:
+
+- Fixed hardcoded asset paths to use relative paths
+- Added Emscripten web build support
+- Created comprehensive build scripts and documentation
+- Updated main loop for web compatibility
 
 ## License
 
