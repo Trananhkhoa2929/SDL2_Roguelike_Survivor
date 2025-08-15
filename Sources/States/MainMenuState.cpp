@@ -5,6 +5,8 @@
 #include "InputHandler.h"
 #include "UpgradeShopState.h"
 #include <iostream>
+#include <sstream> // THÊM DÒNG NÀY
+
 
 // Đặt hàm này ở đầu file MainMenuState.cpp
 void RenderTextWrapped(SDL_Renderer* renderer, TTF_Font* font, const std::string& text, SDL_Color color, int maxWidth, int startX, int startY) {
