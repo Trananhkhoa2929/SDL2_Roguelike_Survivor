@@ -64,7 +64,7 @@ void MainMenuState::OnEnter() {
     // SỬA: Thêm logic load font ngay trong MainMenuState.
     // Trạng thái này cần font để vẽ, nên nó phải tự load.
     // QUAN TRỌNG: Hãy đảm bảo bạn đã đổi sang đường dẫn tương đối!
-    if (!AssetManager::GetInstance()->LoadFont("main_font", "D:/Asset/font/your_font.ttf", 32)) {
+    if (!AssetManager::GetInstance()->LoadFont("main_font", "Asset/font/your_font.ttf", 32)) {
         std::cerr << "!!! CRITICAL: FAILED TO LOAD MAIN FONT IN MAIN MENU !!!" << std::endl;
     }
 

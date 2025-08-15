@@ -33,6 +33,19 @@ bld/
 [Ll]og/
 [Ll]ogs/
 
+# CMake build directories
+build/
+build_*/
+cmake-build-*/
+
+# Emscripten web build artifacts
+*.html
+*.js
+*.wasm
+*.data
+*.js.map
+*.wasm.map
+
 # Visual Studio 2015/2017 cache/options directory
 .vs/
 # Uncomment if you have tasks that create the project's static files in wwwroot

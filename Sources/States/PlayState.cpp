@@ -45,15 +45,14 @@ void PlayState::OnEnter()
 {
     std::cout << "Entering PlayState..." << std::endl;
 
-    // QUAN TRỌNG: Bạn vẫn đang sử dụng đường dẫn tuyệt đối ("D:/...").
-    // Điều này sẽ gây lỗi khi chạy trên máy khác hoặc nếu thư mục không tồn tại.
-    // Hãy đổi chúng thành đường dẫn tương đối.
+    // QUAN TRỌNG: Đã đổi tất cả đường dẫn sang dạng tương đối (Asset/...)
+    // để đảm bảo tương thích đa nền tảng và web deployment.
     AssetManager::GetInstance()->LoadTexture("player_sprite", "Asset/player.png");
     AssetManager::GetInstance()->LoadTexture("chaser_sprite", "Asset/chaser.png");
     AssetManager::GetInstance()->LoadTexture("brute_sprite", "Asset/brute.png");
     // load enemy archer và arrow của nó
-    AssetManager::GetInstance()->LoadTexture("archer_sprite", "Asset/archer.png");
-    AssetManager::GetInstance()->LoadTexture("arrow_sprite", "Asset/arrow.png");
+    AssetManager::GetInstance()->LoadTexture("archer_sprite", "Asset/archer.PNG");
+    AssetManager::GetInstance()->LoadTexture("arrow_sprite", "Asset/arrow.PNG");
     // magic wand
     AssetManager::GetInstance()->LoadTexture("bullet_sprite", "Asset/bullet.png");
     // whip
