@@ -1,0 +1,161 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history for better caching
+          fetch-depth: 0
+
+      - name: 🔧 Setup Emscripten SDK
+        uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: 'latest'
+          actions-cache-folder: 'emsdk-cache'
+
+      - name: 🗂️ Cache Emscripten Build
+        uses: actions/cache@v4
+        with:
+          path: |
+            build_web
+            ~/.emscripten_cache
+          key: ${{ runner.os }}-emscripten-${{ hashFiles('Sources/**/*.cpp', 'Headers/**/*.h', 'main.cpp', 'Makefile.web') }}
+          restore-keys: |
+            ${{ runner.os }}-emscripten-
+
+      - name: 🔍 Verify Emscripten Installation
+        run: |
+          echo "🔧 Emscripten Version:"
+          em++ --version
+          echo "📁 Emscripten Path:"
+          which em++
+          echo "✅ Emscripten Ready!"
+
+      - name: 🖼️ Prepare and Validate Assets
+        run: |
+          echo "🔍 Validating asset extensions..."
+          
+          # Check for uppercase extensions and report them
+          UPPERCASE_FILES=$(find Asset/ -name "*.PNG" -o -name "*.JPG" -o -name "*.JPEG" -o -name "*.TTF" 2>/dev/null || true)
+          
+          if [ ! -z "$UPPERCASE_FILES" ]; then
+            echo "⚠️ Found files with uppercase extensions:"
+            echo "$UPPERCASE_FILES"
+            echo "🔧 Converting to lowercase..."
+            
+            # Convert PNG files
+            find Asset/ -name "*.PNG" -exec bash -c 'mv "$1" "${1%.PNG}.png"' _ {} \; 2>/dev/null || true
+            # Convert JPG files  
+            find Asset/ -name "*.JPG" -exec bash -c 'mv "$1" "${1%.JPG}.jpg"' _ {} \; 2>/dev/null || true
+            # Convert JPEG files
+            find Asset/ -name "*.JPEG" -exec bash -c 'mv "$1" "${1%.JPEG}.jpeg"' _ {} \; 2>/dev/null || true
+            # Convert TTF files
+            find Asset/ -name "*.TTF" -exec bash -c 'mv "$1" "${1%.TTF}.ttf"' _ {} \; 2>/dev/null || true
+            
+            echo "✅ Asset extensions normalized"
+          else
+            echo "✅ All asset extensions are already lowercase"
+          fi
+          
+          # List all assets for verification
+          echo "📁 Asset inventory:"
+          find Asset/ -type f | sort
+
+      - name: 🏗️ Build Web Version
+        run: |
+          echo "🧹 Cleaning previous build..."
+          make clean -f Makefile.web || true
+          
+          echo "🏗️ Building game for web..."
+          make -f Makefile.web
+          
+          echo "📊 Build artifacts generated:"
+          ls -la index.* shell.html 2>/dev/null || echo "❌ Some build artifacts missing"
+          
+          # Verify critical files exist
+          REQUIRED_FILES=("index.html" "index.js" "index.wasm" "index.data")
+          for file in "${REQUIRED_FILES[@]}"; do
+            if [ -f "$file" ]; then
+              echo "✅ $file ($(du -h "$file" | cut -f1))"
+            else
+              echo "❌ Missing: $file"
+              exit 1
+            fi
+          done
+          
+          echo "🎮 Build completed successfully!"
+
+      - name: 📦 Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: 🚀 Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository
+          path: '.'
+
+      - name: 🌐 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: 🎯 Build Summary
+        run: |
+          echo "## 🎮 SDL2 Roguelike Survivor - Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Build Status: SUCCESS" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Generated Files:" >> $GITHUB_STEP_SUMMARY
+          echo "| File | Size |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|------|" >> $GITHUB_STEP_SUMMARY
+          
+          for file in index.html index.js index.wasm index.data shell.html; do
+            if [ -f "$file" ]; then
+              SIZE=$(du -h "$file" | cut -f1)
+              echo "| $file | $SIZE |" >> $GITHUB_STEP_SUMMARY
+            fi
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Deployment:" >> $GITHUB_STEP_SUMMARY
+          echo "- **URL**: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status**: Deployed successfully" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🎮 **Ready to play!** Visit the URL above to start gaming." >> $GITHUB_STEP_SUMMARY
+
+      - name: 💾 Archive Build Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: web-build-artifacts
+          path: |
+            index.html
+            index.js
+            index.wasm
+            index.data
+            shell.html
+          retention-days: 30

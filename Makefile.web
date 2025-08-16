@@ -1,5 +1,5 @@
 # Emscripten compiler
-CXX = /c/Users/khoa/emsdk/upstream/emscripten/em++
+CXX = em++
 
 # Directories
 SRC_DIR = Sources

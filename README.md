@@ -10,7 +10,7 @@
 
 **A 2D top-down survival roguelike game built with SDL2 and C++17**
 
-[🎮 Play Online](https://your-username.github.io/SDL2_Roguelike_Survivor) | [📖 Documentation](#documentation) | [🛠️ Development](#development)
+[🎮 Play Online](https://Trananhkhoa2929.github.io/SDL2_Roguelike_Survivor) | [📖 Documentation](#documentation) | [🛠️ Development](#development)
 
 </div>
 

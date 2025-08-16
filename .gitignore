@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Emscripten build artifacts
+build_web/
+index.html
+index.js
+index.wasm
+index.data
+*.tmp
