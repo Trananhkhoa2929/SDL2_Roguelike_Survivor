@@ -12,7 +12,6 @@ public:
 	}
 
 	bool Init(const char* title, int width, int height);
-
 	void Run();
 	void CleanUp();
 	void Quit();
@@ -20,9 +19,12 @@ public:
 	// Hàm để các hệ thống khác có thể lấy renderer
 	SDL_Renderer* GetRenderer() const { return m_Renderer; }
 
-	// SỬA: Thêm hàm public này để các trạng thái khác (như MainMenuState)
-	// có thể truy cập vào State Machine và thay đổi trạng thái game.
+	// SỬA: Thêm hàm public này để các trạng thái khác có thể truy cập
 	GameStateMachine* GetStateMachine() const { return m_GameStateMachine.get(); }
+
+	// MỚI: Thêm các hàm cần thiết cho Emscripten
+	void RunSingleFrame();
+	bool IsRunning() const;
 
 private:
 	Engine() {}
@@ -31,7 +33,6 @@ private:
 	void Update();
 	void Render();
 
-	// TỐI ƯU: Sử dụng std::unique_ptr để tự động dọn dẹp bộ nhớ cho state machine
 	std::unique_ptr<GameStateMachine> m_GameStateMachine;
 
 	bool m_IsRunning = false;

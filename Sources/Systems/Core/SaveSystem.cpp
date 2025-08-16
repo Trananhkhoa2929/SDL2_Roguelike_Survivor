@@ -11,20 +11,14 @@ SaveSystem* SaveSystem::s_Instance = nullptr;
 
 void SaveSystem::LoadGame() {
 #ifdef __EMSCRIPTEN__
-    // Sync IndexedDB to virtual filesystem
-    EM_ASM(
-        FS.mkdir('/persistent');
-    FS.mount(IDBFS, {}, '/persistent');
-    FS.syncfs(true, function(err) {
-        if (err) {
-            console.log('Failed to load from IndexedDB: ' + err);
-        }
-        else {
-            console.log('Loaded save data from IndexedDB');
-        }
-    });
-        );
-    m_saveFilePath = "/persistent/player_data.sav";
+    // Đơn giản hóa cho web - không dùng IDBFS
+    m_saveFilePath = "/tmp/player_data.sav";
+
+    // Khởi tạo giá trị mặc định cho web
+    m_gold = 0;
+    m_permanentUpgrades.clear();
+    std::cout << "Web version: Using default save data." << std::endl;
+    return;
 #endif
 
     std::ifstream saveFile(m_saveFilePath);
@@ -53,6 +47,12 @@ void SaveSystem::LoadGame() {
 }
 
 void SaveSystem::SaveGame() {
+#ifdef __EMSCRIPTEN__
+    // Đơn giản hóa cho web - chỉ in log
+    std::cout << "Web version: Save data updated (not persistent)." << std::endl;
+    return;
+#endif
+
     std::ofstream saveFile(m_saveFilePath);
     if (!saveFile.is_open()) {
         std::cerr << "Failed to open save file for writing!" << std::endl;
@@ -65,20 +65,6 @@ void SaveSystem::SaveGame() {
     }
     std::cout << "Game data saved." << std::endl;
     saveFile.close();
-
-#ifdef __EMSCRIPTEN__
-    // Sync virtual filesystem to IndexedDB
-    EM_ASM(
-        FS.syncfs(false, function(err) {
-        if (err) {
-            console.log('Failed to save to IndexedDB: ' + err);
-        }
-        else {
-            console.log('Saved data to IndexedDB');
-        }
-    });
-    );
-#endif
 }
 
 int SaveSystem::GetGold() const { return m_gold; }

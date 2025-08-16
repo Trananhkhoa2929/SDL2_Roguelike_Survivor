@@ -3,7 +3,7 @@
 #include <iostream>
 
 int main(int argc, char* args[]) {
-    // Load dữ liệu game đã lưu trước khi khởi tạo bất cứ thứ gì khác
+    // Load dữ liệu game đã lưu trước khi khởi tạy bất cứ thứ gì khác
     SaveSystem::GetInstance()->LoadGame();
 
     if (!Engine::GetInstance()->Init("Noobs Are Coming Clone", 1280, 720)) {

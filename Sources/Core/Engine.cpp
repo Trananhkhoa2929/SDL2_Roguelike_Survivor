@@ -10,9 +10,22 @@
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
+#include <emscripten/html5.h>
 #endif
 
 Engine* Engine::s_Instance = nullptr;
+
+#ifdef __EMSCRIPTEN__
+// Global pointer để emscripten_set_main_loop có thể truy cập
+Engine* g_engine = nullptr;
+
+// Hàm callback cho main loop của Emscripten
+void main_loop() {
+	if (g_engine && g_engine->IsRunning()) {
+		g_engine->RunSingleFrame();
+	}
+}
+#endif
 
 bool Engine::Init(const char* title, int width, int height)
 {
@@ -58,34 +71,34 @@ bool Engine::Init(const char* title, int width, int height)
 void Engine::Run()
 {
 #ifdef __EMSCRIPTEN__
-	// Web: Single frame execution (called by emscripten_set_main_loop)
-	if (m_IsRunning) {
-		Timer::GetInstance()->Tick();
-		InputHandler::GetInstance()->Listen();
-
-		if (InputHandler::GetInstance()->IsQuitRequested()) {
-			m_IsRunning = false;
-			emscripten_cancel_main_loop();
-			return;
-		}
-
-		Update();
-		Render();
-	}
+	g_engine = this;
+	// Sử dụng 0 cho fps (sẽ sync với browser's requestAnimationFrame)
+	// simulate_infinite_loop = 1 để emscripten biết đây là main loop
+	emscripten_set_main_loop(main_loop, 0, 1);
 #else
 	// Desktop: Traditional game loop
 	while (m_IsRunning) {
-		Timer::GetInstance()->Tick();
-		InputHandler::GetInstance()->Listen();
-
-		if (InputHandler::GetInstance()->IsQuitRequested()) {
-			m_IsRunning = false;
-		}
-
-		Update();
-		Render();
+		RunSingleFrame();
 	}
 #endif
+}
+
+// Tách logic một frame thành hàm riêng để dùng chung
+void Engine::RunSingleFrame()
+{
+	Timer::GetInstance()->Tick();
+	InputHandler::GetInstance()->Listen();
+
+	if (InputHandler::GetInstance()->IsQuitRequested()) {
+		m_IsRunning = false;
+#ifdef __EMSCRIPTEN__
+		emscripten_cancel_main_loop();
+#endif
+		return;
+	}
+
+	Update();
+	Render();
 }
 
 void Engine::Update()
@@ -123,4 +136,10 @@ void Engine::Quit()
 #ifdef __EMSCRIPTEN__
 	emscripten_cancel_main_loop();
 #endif
+}
+
+// Thêm getter để kiểm tra trạng thái
+bool Engine::IsRunning() const
+{
+	return m_IsRunning;
 }

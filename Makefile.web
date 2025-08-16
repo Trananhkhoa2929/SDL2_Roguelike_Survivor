@@ -1,0 +1,77 @@
+# Emscripten compiler
+CXX = /c/Users/khoa/emsdk/upstream/emscripten/em++
+
+# Directories
+SRC_DIR = Sources
+HEADER_DIR = Headers
+BUILD_DIR = build_web
+
+# Find all source files
+SOURCES := $(shell find $(SRC_DIR) -name "*.cpp")
+OBJECTS := $(SOURCES:$(SRC_DIR)/%.cpp=$(BUILD_DIR)/%.o)
+
+# Include paths
+INCLUDES = -I$(HEADER_DIR) \
+           -I$(HEADER_DIR)/Components \
+           -I$(HEADER_DIR)/Components/Core \
+           -I$(HEADER_DIR)/Components/Gameplay \
+           -I$(HEADER_DIR)/Components/AI \
+           -I$(HEADER_DIR)/Core \
+           -I$(HEADER_DIR)/Systems \
+           -I$(HEADER_DIR)/Systems/Core \
+           -I$(HEADER_DIR)/Systems/Gameplay \
+           -I$(HEADER_DIR)/Systems/UI \
+           -I$(HEADER_DIR)/Systems/AI \
+           -I$(HEADER_DIR)/Managers \
+           -I$(HEADER_DIR)/States \
+           -I$(HEADER_DIR)/Utils \
+           -I$(HEADER_DIR)/Events
+
+# SDL2 libraries for Emscripten (CẦN THÊM VÀO COMPILE FLAGS)
+SDL_FLAGS = -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2
+
+# Compiler flags (THÊM SDL_FLAGS VÀO ĐÂY)
+CXXFLAGS = -std=c++17 $(INCLUDES) $(SDL_FLAGS) -O2 -DWEB_BUILD
+
+# Link flags
+LIBS = $(SDL_FLAGS) \
+       -s SDL2_IMAGE_FORMATS='["png","jpg"]'
+
+# Emscripten specific flags
+EMFLAGS = -s WASM=1 \
+          -s ALLOW_MEMORY_GROWTH=1 \
+          -s INITIAL_MEMORY=134217728 \
+          -s MAXIMUM_MEMORY=268435456 \
+          -s STACK_SIZE=5242880 \
+          -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap"]' \
+          -s EXPORTED_FUNCTIONS='["_main"]' \
+          -s ENVIRONMENT=web \
+          --shell-file shell.html \
+          --preload-file Asset@Asset
+
+# Target
+TARGET = index.html
+
+.PHONY: all clean directories
+
+all: directories $(TARGET)
+
+directories:
+	@mkdir -p $(BUILD_DIR)
+	@find $(SRC_DIR) -type d 2>/dev/null | sed 's|$(SRC_DIR)|$(BUILD_DIR)|' | xargs mkdir -p 2>/dev/null || true
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(TARGET): $(OBJECTS) main.cpp
+	$(CXX) $(CXXFLAGS) $(OBJECTS) main.cpp $(LIBS) $(EMFLAGS) -o $(TARGET)
+
+clean:
+	rm -rf $(BUILD_DIR)
+	rm -f index.html index.js index.wasm index.data
+
+serve: $(TARGET)
+	python3 -m http.server 8000
+
+.SECONDARY: $(OBJECTS)
