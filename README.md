@@ -158,16 +158,21 @@ make -j4
    # Open browser to localhost:8000
    ```
 
-4. **Deploy to GitHub Pages**:
-   ```bash
-   # Commit web files
-   git add index.html index.js index.wasm index.data shell.html
-   git commit -m "Add web build"
-   git push origin main
+4. **Automated GitHub Pages Deployment**:
+   The repository now includes a GitHub Actions workflow that automatically builds and deploys the web version.
    
-   # Enable GitHub Pages in repository settings
-   # Set source to "Deploy from branch: main"
-   ```
+   **Enable GitHub Pages:**
+   1. Go to your repository Settings → Pages
+   2. Set Source to "Deploy from a branch"
+   3. Select branch: `gh-pages` (this will be created automatically by the workflow)
+   4. Select folder: `/ (root)`
+   5. Save settings
+   
+   **Automatic deployment triggers on:**
+   - Push to `main` or `master` branch
+   - Manual trigger via Actions tab
+   
+   Game will be available at: `https://yourusername.github.io/SDL2_Roguelike_Survivor`
 
 ### Web Build Configuration
 
