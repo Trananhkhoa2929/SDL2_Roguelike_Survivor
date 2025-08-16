@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="icon" href="data:,">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SDL2 Roguelike Survivor</title>
+    <title>SDL2 Roguelike Survivor - Play Online</title>
+    <meta name="description" content="Play SDL2 Roguelike Survivor directly in your browser. Survive endless waves of enemies!">
+    
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="SDL2 Roguelike Survivor">
+    <meta property="og:description" content="2D survival roguelike game built with SDL2 and C++">
+    <meta property="og:type" content="game">
+    <meta property="og:url" content="https://trananhkhoa2929.github.io/SDL2_Roguelike_Survivor">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎮</text></svg>">
+    
     <style>
+        /* Enhanced CSS styles for better UX */
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
@@ -37,11 +47,13 @@
             background: black;
             display: block;
             margin: 0 auto;
+            max-width: 100%;
+            height: auto;
         }
         
-        .status-container {
+        .loading-container {
             margin: 20px 0;
-            min-height: 60px;
+            min-height: 80px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -69,24 +81,46 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         
-        progress {
+        .progress-container {
             width: 300px;
             height: 20px;
+            background: rgba(0,0,0,0.3);
             border-radius: 10px;
             margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
         }
         
         .controls {
-            margin-top: 20px;
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
             font-size: 0.9em;
-            opacity: 0.8;
             max-width: 600px;
             line-height: 1.6;
         }
         
         .controls h3 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             color: #ffd700;
+            font-size: 1.2em;
+        }
+        
+        .error-message {
+            color: #ff6b6b;
+            background: rgba(255,0,0,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid rgba(255,0,0,0.3);
         }
         
         @media (max-width: 768px) {
@@ -98,6 +132,11 @@
             h1 {
                 font-size: 2em;
             }
+            
+            .controls {
+                font-size: 0.8em;
+                padding: 15px;
+            }
         }
     </style>
 </head>
@@ -105,98 +144,136 @@
     <div class="game-container">
         <h1>🎮 SDL2 Roguelike Survivor</h1>
         
-        <div class="status-container" id="status-container">
+        <div class="loading-container" id="loading-container">
             <div class="spinner" id="spinner"></div>
-            <div class="status-text" id="status">Loading game...</div>
-            <progress value="0" max="100" id="progress" hidden></progress>
+            <div class="status-text" id="status">Initializing game...</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
         </div>
+        
+        <div id="error-container"></div>
         
         <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" 
                 tabindex="-1" width="1280" height="720"></canvas>
         
         <div class="controls">
-            <h3>🎯 Controls:</h3>
-            <p><strong>WASD / Arrow Keys:</strong> Move player</p>
+            <h3>🎯 How to Play:</h3>
+            <p><strong>WASD / Arrow Keys:</strong> Move your character</p>
             <p><strong>ESC:</strong> Pause game</p>
             <p><strong>Mouse:</strong> Navigate menus and select upgrades</p>
+            <p><strong>Goal:</strong> Survive as long as possible against endless enemy waves!</p>
         </div>
     </div>
 
     <script>
         var statusElement = document.getElementById('status');
-        var progressElement = document.getElementById('progress');
+        var progressBar = document.getElementById('progress-bar');
         var spinnerElement = document.getElementById('spinner');
-        var statusContainer = document.getElementById('status-container');
+        var loadingContainer = document.getElementById('loading-container');
+        var errorContainer = document.getElementById('error-container');
 
         var Module = {
             preRun: [],
             postRun: [],
             print: function(text) {
-                console.log(text);
+                console.log('[Game]', text);
             },
             printErr: function(text) {
-                console.error(text);
+                console.error('[Game Error]', text);
+                showError('Game Error: ' + text);
             },
             canvas: (function() {
                 var canvas = document.getElementById('canvas');
-                canvas.addEventListener("webglcontextlost", function(e) { 
-                    alert('WebGL context lost. Please reload the page.'); 
-                    e.preventDefault(); 
+                
+                canvas.addEventListener("webglcontextlost", function(e) {
+                    showError('WebGL context lost. Please refresh the page.');
+                    e.preventDefault();
                 }, false);
+                
                 return canvas;
             })(),
             setStatus: function(text) {
-                if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: '' };
+                if (!Module.setStatus.last) {
+                    Module.setStatus.last = { time: Date.now(), text: '' };
+                }
+                
                 if (text === Module.setStatus.last.text) return;
                 
                 var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
                 var now = Date.now();
+                
                 if (m && now - Module.setStatus.last.time < 30) return;
                 
                 Module.setStatus.last.time = now;
                 Module.setStatus.last.text = text;
                 
                 if (text) {
-                    statusElement.innerHTML = text;
+                    statusElement.textContent = text;
                     if (m) {
                         var progress = parseInt(m[2]) / parseInt(m[4]) * 100;
-                        progressElement.value = progress;
-                        progressElement.hidden = false;
+                        progressBar.style.width = progress + '%';
                     }
                 } else {
-                    statusElement.innerHTML = '';
-                    progressElement.hidden = true;
+                    statusElement.textContent = 'Game loaded successfully!';
+                    progressBar.style.width = '100%';
+                    setTimeout(function() {
+                        loadingContainer.style.display = 'none';
+                    }, 500);
                 }
             },
             totalDependencies: 0,
             monitorRunDependencies: function(left) {
                 this.totalDependencies = Math.max(this.totalDependencies, left);
-                Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + 
-                                '/' + this.totalDependencies + ')' : 'All downloads complete.');
+                Module.setStatus(left ? 
+                    'Loading dependencies... (' + (this.totalDependencies-left) + 
+                    '/' + this.totalDependencies + ')' : 
+                    'All files loaded.'
+                );
             }
         };
 
-        Module.setStatus('Downloading...');
+        function showError(message) {
+            var errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            errorContainer.appendChild(errorDiv);
+            
+            loadingContainer.style.display = 'none';
+        }
+
+        Module.setStatus('Loading game files...');
         
-        window.onerror = function() {
-            Module.setStatus('⚠️ Exception thrown, check browser console');
-            spinnerElement.style.display = 'none';
+        window.onerror = function(message, source, lineno, colno, error) {
+            console.error('Global error:', message, 'at', source + ':' + lineno);
+            showError('Failed to load game: ' + message);
+            return false;
         };
+
+        // Handle unhandled promise rejections
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+            showError('Failed to load game resources: ' + event.reason);
+        });
     </script>
     
     {{{ SCRIPT }}}
     
     <script>
         Module['postRun'].push(function() {
-            statusContainer.style.display = 'none';
-            console.log('🎮 Game loaded successfully!');
+            console.log('🎮 Game loaded and ready to play!');
+            statusElement.textContent = 'Game ready! Click on the game area to start.';
         });
         
-        // Mobile optimization
+        // Mobile-specific optimizations
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             var canvas = document.getElementById('canvas');
             canvas.style.width = '100%';
             canvas.style.height = 'auto';
+            
+            // Add touch controls hint for mobile
+            var controlsDiv = document.querySelector('.controls');
+            controlsDiv.innerHTML += '<p><strong>📱 Mobile:</strong> This game is optimized for desktop. Consider using a keyboard for the best experience.</p>';
         }
     </script>
 </body>

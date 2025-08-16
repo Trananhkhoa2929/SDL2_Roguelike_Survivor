@@ -1,5 +1,5 @@
 # Emscripten compiler
-CXX = /c/Users/khoa/emsdk/upstream/emscripten/em++
+CXX = em++
 
 # Directories
 SRC_DIR = Sources
@@ -30,22 +30,26 @@ INCLUDES = -I$(HEADER_DIR) \
 # SDL2 libraries for Emscripten (CẦN THÊM VÀO COMPILE FLAGS)
 SDL_FLAGS = -s USE_SDL=2 -s USE_SDL_IMAGE=2 -s USE_SDL_TTF=2
 
-# Compiler flags (THÊM SDL_FLAGS VÀO ĐÂY)
-CXXFLAGS = -std=c++17 $(INCLUDES) $(SDL_FLAGS) -O2 -DWEB_BUILD
+# Compiler flags
+CXXFLAGS = -std=c++17 $(INCLUDES) $(SDL_FLAGS) -O3 -DWEB_BUILD
 
 # Link flags
 LIBS = $(SDL_FLAGS) \
        -s SDL2_IMAGE_FORMATS='["png","jpg"]'
 
-# Emscripten specific flags
+# Emscripten specific flags for web deployment
 EMFLAGS = -s WASM=1 \
           -s ALLOW_MEMORY_GROWTH=1 \
-          -s INITIAL_MEMORY=134217728 \
+          -s INITIAL_MEMORY=67108864 \
           -s MAXIMUM_MEMORY=268435456 \
-          -s STACK_SIZE=5242880 \
+          -s STACK_SIZE=2097152 \
           -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap"]' \
           -s EXPORTED_FUNCTIONS='["_main"]' \
           -s ENVIRONMENT=web \
+          -s MODULARIZE=0 \
+          -s SINGLE_FILE=0 \
+          -s WASM_ASYNC_COMPILATION=1 \
+          -s FORCE_FILESYSTEM=1 \
           --shell-file shell.html \
           --preload-file Asset@Asset
 
@@ -72,6 +76,6 @@ clean:
 	rm -f index.html index.js index.wasm index.data
 
 serve: $(TARGET)
-	python3 -m http.server 8000
+	python3 -m http.server 8080
 
 .SECONDARY: $(OBJECTS)

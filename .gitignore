@@ -361,3 +361,15 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Web build artifacts (keep for deployment via GitHub Actions)
+# Emscripten build files are now kept in repo for deployment
+build_web/
+shell.html.backup
+
+# Save files
+*.sav
+
+# OS files
+.DS_Store
+Thumbs.db

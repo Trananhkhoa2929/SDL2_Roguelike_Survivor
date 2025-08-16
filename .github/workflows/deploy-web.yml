@@ -1,0 +1,47 @@
+name: Deploy Web Game
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Emscripten
+      uses: mymindstorm/setup-emsdk@v14
+      with:
+        version: 'latest'
+        
+    - name: Verify Emscripten
+      run: emcc --version
+      
+    - name: Fix Asset Extensions
+      run: |
+        cd Asset
+        # Convert all PNG to lowercase if needed
+        find . -name "*.PNG" -exec sh -c 'mv "$1" "${1%.PNG}.png"' _ {} \;
+        ls -la
+        
+    - name: Build Web Version
+      run: |
+        make clean -f Makefile.web || true
+        make -f Makefile.web
+        
+    - name: Prepare Deploy Files
+      run: |
+        mkdir -p deploy
+        cp index.html index.js index.wasm index.data deploy/
+        cp -r Asset deploy/ || true
+        
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./deploy
+        publish_branch: gh-pages
